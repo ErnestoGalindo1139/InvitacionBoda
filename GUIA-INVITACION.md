@@ -67,3 +67,45 @@ El ZIP contiene el código fuente y los recursos originales. No incluye `.git`, 
 ## Verificación realizada
 
 Compilación `yarn build` correcta (TypeScript + Vite), lint de los ocho archivos nuevos/modificados de TypeScript sin errores y comprobaciones de cuenta regresiva, enlaces y existencia de assets. No se realizó prueba visual en navegador ni envío real de WhatsApp. La música requiere que añadas tu archivo para probarla.
+# Apertura y revisión visual
+
+La portada ahora vive en `src/TiendaOnline/components/InvitationIntro/` y envuelve la página existente. Conserva los datos, fotografías y rutas. No incorpora dependencias.
+
+El sobre tiene cuerpo, tarjeta, bolsillo, solapa y sello independientes. Una secuencia CSS de 2200 ms contrae ligeramente el sobre, gira la solapa con `rotateX`, eleva la tarjeta y amplía su fotografía mientras revela el Hero real. El evento `animationend` de la capa principal completa el estado `closed → opening → opened`; no hay cadenas de temporizadores. Los textos del Hero aparecen durante la misma secuencia.
+
+El sobre aparece cerrado cada vez que se entra o se recarga la página. También se restablece al volver desde la caché de navegación del navegador. La apertura no utiliza `sessionStorage`; cualquier clave antigua `weddingInvitationOpened` se ignora.
+
+Para repetirla, basta con recargar la página, o ejecutar en la consola:
+
+```js
+location.reload();
+```
+
+No hay controles de reinicio en producción. Con movimiento reducido, el sobre abre inmediatamente y la página no ejecuta animaciones. Si la preferencia cambia durante la apertura, también se completa de inmediato. El botón admite Enter y Espacio; el contenido permanece `inert` y el scroll bloqueado hasta terminar. Después, el foco pasa al título del Hero.
+
+## Comandos
+
+```sh
+npm run dev -- --host 127.0.0.1
+npm run lint
+npm run build
+node --test scripts/check-invitation.mjs
+```
+
+Las pruebas automatizadas comprueban que cada montaje comienza con el sobre cerrado, incluso con una sesión anteriormente abierta o almacenamiento bloqueado, además del botón semántico y la ocultación accesible del contenido. No sustituyen las pruebas de interacción en un navegador.
+
+## Prueba manual en navegador
+
+1. Revisar a 360, 375, 390, 430, 768, 1024 y 1440 px, además de móvil horizontal. Comprobar que no haya desbordamiento horizontal y que sobre, sello, textos y controles sean legibles.
+2. Abrir con toque, Enter y Espacio en pruebas separadas. Comprobar la continuidad tarjeta–Hero, los clics repetidos, el bloqueo de scroll durante la apertura y su liberación al finalizar.
+3. Recargar tras abrir: debe reaparecer el sobre cerrado. Repetir al entrar nuevamente y al regresar con Atrás desde otra página, incluida la restauración desde la caché de navegación.
+4. Activar `prefers-reduced-motion: reduce`, repetir la apertura y comprobar que no haya transiciones. Cambiar la preferencia mientras se abre también debe liberar la página.
+5. Recorrer todas las secciones, deslizar la galería y usar ambas flechas, comprobar el contador y los dos enlaces de ubicación. El RSVP flotante aparece al dejar atrás el Hero.
+
+## Validación y pendientes
+
+Compilación y pruebas automatizadas verificadas. ESLint conserva avisos de archivos anteriores ajenos a esta modificación; el componente nuevo no añade avisos. Browserslist informa que su base de datos está desactualizada. La inspección visual y la interacción en dispositivos quedan pendientes: no había un navegador conectado a la herramienta de revisión.
+
+Las fotos PNG originales llegan a 22 MB: conviene crear variantes WebP/AVIF y `srcset` antes de publicar para mejorar la carga móvil. Se han conservado los archivos originales y sus rutas. El número de WhatsApp sigue como `[Número]` y el formulario existente no tiene un servicio de envío configurado; debe resolverse antes de usarlo para recibir confirmaciones reales.
+
+---

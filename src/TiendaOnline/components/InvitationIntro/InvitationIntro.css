@@ -1,0 +1,536 @@
+.wedding .invitation-intro {
+  --opening-duration: 2200ms;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 24px;
+  isolation: isolate;
+  text-align: center;
+  overflow: hidden;
+}
+.wedding .invitation-intro-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--paper-texture),
+    radial-gradient(ellipse at 48% 35%, #fbf8ef, #e9e0d1);
+}
+.wedding .invitation-intro-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border: 1px solid #aa8b631c;
+  border-radius: 50% 50% 0 0 / 22% 22% 0 0;
+  pointer-events: none;
+}
+.wedding .invitation-intro-heading {
+  margin-bottom: clamp(58px, 10vh, 100px);
+}
+.wedding .invitation-intro-heading .eyebrow {
+  color: var(--muted);
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+}
+.wedding .invitation-intro-names {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 6.7vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin: 22px 0 16px;
+}
+.wedding .invitation-intro-names em {
+  font-size: 0.8em;
+  color: var(--accent);
+  margin-inline: 0.12em;
+}
+.wedding .invitation-intro-date {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.wedding .invitation-heading-flourish {
+  display: block;
+  width: 110px;
+  height: 28px;
+  margin: -6px auto 16px;
+  stroke: var(--accent);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.wedding .invitation-envelope-button {
+  display: block;
+  position: relative;
+  width: min(100%, 380px);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+.wedding .invitation-envelope-button:focus:not(:focus-visible) {
+  outline: none;
+}
+.wedding .invitation-envelope {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.5;
+  perspective: 1000px;
+  text-align: center;
+  transform: rotate(-3deg);
+  transition: transform 700ms var(--ease-out);
+}
+.wedding .envelope-underlay {
+  position: absolute;
+  inset: 1px 1px -6px;
+  border: 1px solid #ccbd9e;
+  background: var(--paper-texture), #e7dbc5;
+  transform: rotate(2deg);
+  border-radius: 2px 5px 2px 4px;
+}
+.wedding .envelope-back {
+  position: absolute;
+  inset: 0;
+  background: var(--paper-texture),
+    linear-gradient(135deg, #c8b79a, #e4d5b9 50%, #cdbb9b);
+  border: 1px solid #c2ad87;
+  box-shadow:
+    0 18px 38px #6b53351f,
+    0 2px 5px #6b533510;
+  border-radius: 3px 5px 3px 6px;
+}
+.wedding .envelope-card {
+  position: absolute;
+  z-index: 2;
+  inset: 8px 16px 12px;
+  display: block;
+  background: var(--paper-texture),
+    linear-gradient(
+      180deg,
+      transparent 49.5%,
+      #ab95781c 50%,
+      #fff8 50.5%,
+      transparent 51%
+    ),
+    linear-gradient(
+      90deg,
+      #deca9e33,
+      transparent 8%,
+      transparent 92%,
+      #deca9e33
+    ),
+    #fcf7e9;
+  border: 1px solid #d0bd96;
+  border-radius: 2px 4px 1px 3px;
+  box-shadow: 0 2px 8px #6b533512;
+  transform-origin: 50% 45%;
+  clip-path: polygon(
+    0.3% 0.4%,
+    14% 0%,
+    29% 0.5%,
+    43% 0.1%,
+    58% 0.4%,
+    72% 0%,
+    87% 0.4%,
+    99.6% 0.1%,
+    100% 22%,
+    99.5% 43%,
+    100% 65%,
+    99.5% 84%,
+    99.8% 99.5%,
+    85% 100%,
+    69% 99.5%,
+    52% 100%,
+    36% 99.6%,
+    18% 100%,
+    0.4% 99.6%,
+    0% 79%,
+    0.4% 58%,
+    0% 38%,
+    0.4% 19%
+  );
+}
+.wedding .envelope-card-copy {
+  position: absolute;
+  inset: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #baa27460;
+  border-radius: 45% 45% 0 0 / 30% 30% 0 0;
+}
+.wedding .envelope-card .eyebrow {
+  font-size: 0.48rem;
+  letter-spacing: 0.25em;
+}
+.wedding .envelope-card-names {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  line-height: 1.05;
+  margin-top: 10px;
+}
+.wedding .envelope-card-names em {
+  display: block;
+  font-size: 0.65em;
+  color: var(--accent);
+  line-height: 1.2;
+}
+.wedding .envelope-card-rule {
+  height: 18px;
+  width: 72px;
+  stroke: var(--accent);
+  stroke-width: 0.9;
+  margin: 5px;
+}
+.wedding .envelope-card-date {
+  font-size: 0.48rem;
+  letter-spacing: 0.07em;
+}
+.wedding .envelope-card-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: 48% 40%;
+  opacity: 0;
+}
+.wedding .envelope-card-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #0f16114d;
+}
+.wedding .envelope-pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: var(--paper-texture),
+    conic-gradient(
+      from 56deg at 50% 55%,
+      #e6d8bd 0deg 68deg,
+      #f0e5ce 68deg 180deg,
+      #ddcbaa 180deg 248deg,
+      transparent 248deg
+    );
+  clip-path: polygon(0 0, 50% 49%, 100% 0, 100% 100%, 0 100%);
+  border: 1px solid #c7b28b;
+  border-radius: 0 0 3px 5px;
+}
+.wedding .envelope-address {
+  position: absolute;
+  z-index: 4;
+  inset: 72% 16px auto;
+  color: #7a6b50;
+}
+.wedding .envelope-address > span:first-child {
+  display: block;
+  font-size: 0.46rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.wedding .envelope-address > span:last-child {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(0.8rem, 3.2vw, 1rem);
+  letter-spacing: -0.03em;
+}
+.wedding .envelope-address i {
+  color: var(--accent);
+  padding-inline: 3px;
+}
+.wedding .envelope-ribbon {
+  position: absolute;
+  z-index: 5;
+  top: 47%;
+  left: -1px;
+  right: -1px;
+  height: 22px;
+  background: linear-gradient(
+    180deg,
+    #a7ad9470,
+    #848d70b3 15%,
+    #a3a78aa6 55%,
+    #7c886fa6 88%,
+    #bbc0a270
+  );
+  border-block: 1px solid #81866d30;
+  box-shadow: 0 2px 4px #63523110;
+  transform-origin: left center;
+}
+.wedding .envelope-flap {
+  position: absolute;
+  inset: 0 0 43%;
+  z-index: 5;
+  transform-origin: center top;
+  background: var(--paper-texture), linear-gradient(165deg, #f4ead5, #d8c39d);
+  clip-path: polygon(0 0, 100% 0, 54% 96%, 50% 100%, 46% 96%);
+  backface-visibility: visible;
+}
+.wedding .envelope-seal {
+  position: absolute;
+  z-index: 6;
+  width: 62px;
+  height: 62px;
+  left: calc(50% - 31px);
+  top: calc(53% - 31px);
+  display: grid;
+  place-items: center;
+  border-radius: 46% 51% 45% 49%;
+  background: linear-gradient(140deg, #7c896b, #52634f 52%, #3e5144);
+  border: 1px solid #526049;
+  box-shadow:
+    0 3px 5px #59422625,
+    inset 0 0 0 4px #a5ae862e,
+    inset 0 0 0 5px #c4ae8860;
+  color: #e4d1a6;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  text-shadow: 0 1px 1px #5e492a;
+  transform: rotate(8deg);
+}
+.wedding .envelope-seal::after {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border-block: 1px solid #d8c49160;
+  border-radius: 50%;
+}
+.wedding .envelope-seal i {
+  font-size: 0.65em;
+  margin-inline: 2px;
+}
+.wedding .invitation-open-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+}
+.wedding .invitation-open-cue > span {
+  font-size: 1rem;
+  animation: invitation-cue 2600ms ease-in-out 3;
+}
+.wedding .invitation-intro-footer {
+  margin: clamp(40px, 8vh, 90px) 0 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--muted);
+}
+.wedding[data-invitation='opening'] .invitation-intro {
+  animation: invitation-unveil var(--opening-duration) var(--ease-out) both;
+}
+.wedding[data-invitation='opening'] .invitation-intro-backdrop {
+  animation: invitation-backdrop var(--opening-duration) var(--ease-out) both;
+}
+.wedding[data-invitation='opening'] .invitation-intro-heading,
+.wedding[data-invitation='opening'] .invitation-intro-footer,
+.wedding[data-invitation='opening'] .invitation-open-cue {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.wedding[data-invitation='opening'] .invitation-envelope {
+  animation: envelope-touch var(--opening-duration) var(--ease-out) both;
+}
+.wedding[data-invitation='opening'] .envelope-flap {
+  animation: envelope-open var(--opening-duration) var(--ease-out) both;
+}
+.wedding[data-invitation='opening'] .envelope-seal {
+  animation: envelope-seal-release var(--opening-duration) var(--ease-out) both;
+}
+.wedding[data-invitation='opening'] .envelope-ribbon {
+  animation: envelope-ribbon-release var(--opening-duration) var(--ease-out)
+    both;
+}
+.wedding[data-invitation='opening'] .envelope-card {
+  animation: invitation-card-lift var(--opening-duration) var(--ease-out) both;
+}
+.wedding[data-invitation='opening'] .envelope-card-photo {
+  animation: invitation-photo var(--opening-duration) var(--ease-out) both;
+}
+.wedding[data-invitation='opening'] .envelope-pocket,
+.wedding[data-invitation='opening'] .envelope-back,
+.wedding[data-invitation='opening'] .envelope-underlay,
+.wedding[data-invitation='opening'] .envelope-address {
+  animation: envelope-retreat var(--opening-duration) var(--ease-out) both;
+}
+@keyframes envelope-touch {
+  0% {
+    transform: rotate(-3deg) scale(1);
+  }
+  8% {
+    transform: rotate(-2deg) scale(0.985);
+  }
+  24%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+@keyframes envelope-seal-release {
+  0%,
+  4% {
+    opacity: 1;
+    transform: rotate(8deg) translateY(0) scale(1);
+  }
+  16% {
+    opacity: 1;
+    transform: rotate(-6deg) translateY(-8px) scale(1.08);
+  }
+  27%,
+  100% {
+    opacity: 0;
+    transform: rotate(-12deg) translateY(14px) scale(0.95);
+  }
+}
+@keyframes envelope-ribbon-release {
+  0%,
+  12% {
+    opacity: 1;
+    transform: translateX(0) rotate(0);
+  }
+  34%,
+  100% {
+    opacity: 0;
+    transform: translateX(-18%) rotate(-8deg);
+  }
+}
+@keyframes envelope-open {
+  0%,
+  16% {
+    transform: rotateX(0);
+    z-index: 5;
+  }
+  42%,
+  100% {
+    transform: rotateX(176deg);
+    z-index: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  78%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes invitation-card-lift {
+  0%,
+  32% {
+    transform: translateY(0) rotate(0);
+  }
+  56% {
+    transform: translateY(-68%) rotate(2deg) scale(1.04);
+  }
+  64% {
+    transform: translateY(-72%) rotate(0) scale(1.12);
+    opacity: 1;
+  }
+  94%,
+  100% {
+    transform: translateY(-35%) rotate(0) scale(4.5);
+    opacity: 0;
+  }
+}
+@keyframes invitation-photo {
+  0%,
+  57% {
+    opacity: 0;
+  }
+  73%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes envelope-retreat {
+  0%,
+  54% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  82%,
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+@keyframes invitation-backdrop {
+  0%,
+  62% {
+    opacity: 1;
+  }
+  92%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes invitation-unveil {
+  0%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes invitation-cue {
+  50% {
+    transform: translateY(4px);
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .wedding[data-invitation='closed']
+    .invitation-envelope-button:hover
+    .invitation-envelope {
+    transform: translateY(-3px) rotate(-1deg);
+  }
+}
+@media (max-height: 660px) {
+  .wedding .invitation-intro {
+    padding-block: 20px;
+  }
+  .wedding .invitation-intro-heading {
+    margin-bottom: 32px;
+  }
+  .wedding .invitation-heading-flourish {
+    height: 20px;
+    margin-bottom: 8px;
+  }
+  .wedding .invitation-envelope-button {
+    width: min(100%, 42vh, 290px);
+  }
+  .wedding .invitation-intro-footer {
+    margin-top: 24px;
+  }
+  .wedding .invitation-open-cue {
+    margin-top: 24px;
+  }
+}
+@media (max-height: 450px) and (orientation: landscape) {
+  .wedding .invitation-intro {
+    flex-direction: row;
+    gap: 48px;
+  }
+  .wedding .invitation-intro-heading {
+    margin: 0;
+  }
+  .wedding .invitation-envelope-button {
+    width: 250px;
+  }
+  .wedding .invitation-intro-footer {
+    display: none;
+  }
+}

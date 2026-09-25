@@ -28,12 +28,20 @@ export const invitacion = {
     'Hay momentos que cambian nuestra vida para siempre. El nuestro será aún más especial si lo compartimos contigo.',
   ceremonia: {
     nombre: 'Templo San Judas Tadeo',
+    foto: {
+      src: 'ceremonia.png',
+      alt: 'Fachada y escalinata del Templo San Judas Tadeo',
+    },
     hora: '5:00 PM',
     direccion: '',
     maps: 'https://maps.app.goo.gl/7TsGHE2gWcoZrrsR8',
   },
   recepcion: {
     nombre: 'Hacienda San Ramon',
+    foto: {
+      src: 'celebracion.png',
+      alt: 'Escalera y fachada iluminada de Hacienda San Ramon',
+    },
     hora: '8:00 PM',
     direccion: '',
     maps: 'https://maps.app.goo.gl/9CHjHKnDdBabRH6H8',
@@ -111,7 +119,19 @@ export const invitacion = {
     mostrar: true,
     titulo: 'Tu presencia es nuestro mejor regalo',
     texto:
-      'Si deseas tener un detalle con nosotros, recibiremos con mucho cariño tu regalo en un sobre el día de la boda.',
+      'Si deseas tener un detalle con nosotros, puedes elegir la opción que prefieras. Lo recibiremos con mucho cariño.',
+    mesas: [
+      {
+        nombre: 'Liverpool',
+        numeroEvento: '52031526',
+        url: 'https://mesaderegalos.liverpool.com.mx/milistaderegalos/52031526',
+      },
+      {
+        nombre: 'Cimaco',
+        numeroEvento: '47147',
+        url: 'https://mdr.cimaco.com.mx/evento/47147',
+      },
+    ],
   },
   musica: { src: '', titulo: 'Nuestra canción' }, // Ejemplo: audio/nuestra-cancion.mp3. Vacío oculta el control.
   fraseFinal: 'Gracias por ser parte de nuestra historia.',

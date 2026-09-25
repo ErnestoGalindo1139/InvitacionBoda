@@ -11,7 +11,11 @@ export const Galeria = ({
     const rail = ref.current;
     if (rail)
       rail.scrollBy({
-        left: direction * rail.clientWidth * 0.82,
+        left:
+          direction *
+          ((rail.querySelector('figure')?.getBoundingClientRect().width ??
+            rail.clientWidth) +
+            parseFloat(getComputedStyle(rail).gap || '0')),
         behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
           ? 'instant'
           : 'smooth',
