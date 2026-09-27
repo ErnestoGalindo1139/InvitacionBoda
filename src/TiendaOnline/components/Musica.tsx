@@ -1,26 +1,27 @@
-import type { JSX } from 'react';
-import { useRef, useState } from 'react';
+import type { JSX, RefObject } from 'react';
+import { useState } from 'react';
 import { assetUrl } from '../helpers/invitacion';
 export const Musica = ({
   src,
   titulo,
+  audioRef,
 }: {
   src: string;
   titulo: string;
+  audioRef: RefObject<HTMLAudioElement>;
 }): JSX.Element | null => {
-  const audio = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [error, setError] = useState(false);
   if (!src) return null;
   const toggle = async (): Promise<void> => {
-    if (!audio.current) return;
+    if (!audioRef.current) return;
     if (playing) {
-      audio.current.pause();
+      audioRef.current.pause();
       return;
     }
     try {
-      audio.current.volume = 0.35;
-      await audio.current.play();
+      audioRef.current.volume = 0.25;
+      await audioRef.current.play();
       setError(false);
     } catch {
       setError(true);
@@ -29,10 +30,10 @@ export const Musica = ({
   return (
     <div className="music-control">
       <audio
-        ref={audio}
+        ref={audioRef}
         src={assetUrl(src)}
         loop
-        preload="none"
+        preload="metadata"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onError={() => {

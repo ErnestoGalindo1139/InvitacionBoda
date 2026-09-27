@@ -27,12 +27,14 @@ export const InvitationIntro = ({
   novio,
   fecha,
   photo,
+  onOpen,
   children,
 }: {
   novia: string;
   novio: string;
   fecha: string;
   photo: string;
+  onOpen: () => void;
   children: ReactNode;
 }): JSX.Element => {
   const [state, setState] = useState<InvitationState>('closed');
@@ -86,6 +88,7 @@ export const InvitationIntro = ({
 
   const open = (): void => {
     if (state !== 'closed') return;
+    onOpen();
     shouldFocus.current = true;
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();

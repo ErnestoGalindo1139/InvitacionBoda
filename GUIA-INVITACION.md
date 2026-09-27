@@ -30,7 +30,7 @@ Todo está centralizado en `src/TiendaOnline/data/invitacion.ts`:
 - `dressCode`, `colores`: etiqueta y tonos orientativos.
 - `fotos`: rutas relativas a public y descripciones accesibles. Reemplaza las fotos de muestra por las de la pareja; son fotografías de stock de personas distintas.
 - `regalos.mostrar`: `false` para ocultar toda la sección.
-- `musica.src`: deja vacío para ocultar el control o coloca un audio propio/autorizado en `public/audio/` e indica `audio/nuestra-cancion.mp3`. Se activa mediante clic, con volumen inicial de 35%, pausa y manejo de error. No se incluye una canción.
+- `musica.src`: ruta del audio en `public/audio/`. La cancion incluida empieza al abrir el sobre, a 25% de volumen, y puede pausarse o reanudarse con el boton flotante.
 - `fraseFinal`: texto de cierre.
 
 Actualiza también el título y la descripción de `index.html` antes de compartir. No se configuraron fechas, contactos ni ubicaciones ficticias como si fueran reales.

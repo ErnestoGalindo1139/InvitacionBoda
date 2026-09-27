@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent, type JSX } from 'react';
+import { useEffect, useRef, useState, type FormEvent, type JSX } from 'react';
 import {
   CheckCircle2,
   CalendarDays,
@@ -28,6 +28,7 @@ const goTo = (id: string): void =>
       : 'smooth',
   });
 export const HomePage = (): JSX.Element => {
+  const audioRef = useRef<HTMLAudioElement>(null);
   const rsvp = whatsappUrl(data.whatsapp, data.mensajeConfirmacion);
   const [showFloatingRsvp, setShowFloatingRsvp] = useState(false);
   const [confirmationSent, setConfirmationSent] = useState(false);
@@ -78,6 +79,13 @@ export const HomePage = (): JSX.Element => {
       novio={data.novio}
       fecha={data.fechaTexto}
       photo={assetUrl(data.fotos[0].src)}
+      onOpen={() => {
+        if (!audioRef.current) return;
+        audioRef.current.volume = 0.25;
+        void audioRef.current.play().catch(() => {
+          // The visible music button still lets the guest start playback.
+        });
+      }}
     >
       <main>
         <header className="hero">
@@ -417,7 +425,11 @@ export const HomePage = (): JSX.Element => {
                   <span className="gift-option-number">01</span>
                   <div className="gift-option-art" aria-hidden="true">
                     <Mail size={42} strokeWidth={1.2} />
-                    <Heart className="gift-art-heart" size={15} fill="currentColor" />
+                    <Heart
+                      className="gift-art-heart"
+                      size={15}
+                      fill="currentColor"
+                    />
                   </div>
                   <h3>Sobre</h3>
                   <p>Podrás entregarlo el día de la boda.</p>
@@ -428,15 +440,24 @@ export const HomePage = (): JSX.Element => {
                     <span className="gift-option-number">0{index + 2}</span>
                     <div className="gift-option-art" aria-hidden="true">
                       {mesa.nombre === 'Liverpool' ? (
-                        <img src={assetUrl(data.fotos[0].src)} alt="" loading="lazy" />
+                        <img
+                          src={assetUrl(data.fotos[0].src)}
+                          alt=""
+                          loading="lazy"
+                        />
                       ) : (
                         <Gift size={44} strokeWidth={1.2} />
                       )}
                     </div>
                     <h3>{mesa.nombre}</h3>
-                    <p className="gift-event-title">Boda de {data.novio} y {data.novia}</p>
+                    <p className="gift-event-title">
+                      Boda de {data.novio} y {data.novia}
+                    </p>
                     <div className="gift-event-meta">
-                      <span><CalendarDays size={15} aria-hidden="true" /> {data.fechaTexto}</span>
+                      <span>
+                        <CalendarDays size={15} aria-hidden="true" />{' '}
+                        {data.fechaTexto}
+                      </span>
                       <span>Evento {mesa.numeroEvento}</span>
                     </div>
                     <a
@@ -446,7 +467,8 @@ export const HomePage = (): JSX.Element => {
                       rel="noopener noreferrer"
                       aria-label={`Ver mesa de regalos en ${mesa.nombre} (abre en una pestaña nueva)`}
                     >
-                      Ver mesa de regalos <ExternalLink size={15} aria-hidden="true" />
+                      Ver mesa de regalos{' '}
+                      <ExternalLink size={15} aria-hidden="true" />
                     </a>
                   </div>
                 ))}
@@ -472,7 +494,7 @@ export const HomePage = (): JSX.Element => {
             <p>{data.fechaTexto}</p>
           </Reveal>
         </footer>
-        <Musica {...data.musica} />
+        <Musica {...data.musica} audioRef={audioRef} />
         {showFloatingRsvp && (
           <button
             className="floating-rsvp"

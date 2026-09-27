@@ -133,6 +133,9 @@ export const invitacion = {
       },
     ],
   },
-  musica: { src: '', titulo: 'Nuestra canción' }, // Ejemplo: audio/nuestra-cancion.mp3. Vacío oculta el control.
+  musica: {
+    src: 'audio/my-heart-will-go-on.mp3',
+    titulo: 'My Heart Will Go On',
+  },
   fraseFinal: 'Gracias por ser parte de nuestra historia.',
 };
