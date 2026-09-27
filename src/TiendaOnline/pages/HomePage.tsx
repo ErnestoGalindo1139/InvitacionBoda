@@ -99,26 +99,29 @@ export const HomePage = (): JSX.Element => {
           />
           <div className="hero-shade" />
           <nav className="topbar" aria-label="Invitación">
-            <span>UNA HISTORIA DE AMOR</span>
+            <span>UNA PELÍCULA DE AMOR</span>
           </nav>
           <div className="hero-content">
-            <p className="eyebrow">Nos casamos</p>
             <h1 tabIndex={-1}>
               <span>{data.novia}</span>
               <em>&</em>
               <span>{data.novio}</span>
             </h1>
             <div className="hero-rule" />
-            <p className="hero-date">{data.fechaTexto}</p>
-            <p className="hero-caption">Y queremos vivir este día contigo.</p>
+            <p className="hero-caption">La historia de un amor que comenzó con un “sí”...</p>
+          </div>
+          <div className="hero-film-footer">
+            <p className="hero-film-presents">UNA HISTORIA PARA RECORDAR</p>
+            <p className="hero-date"><span>✦ ESTRENO ✦</span>{data.fechaTexto}<span>✦ ESTRENO ✦</span></p>
+            <p className="hero-film-credits">PROTAGONIZADA POR ALEJANDRA Y DIONISIO · CON LA PARTICIPACIÓN ESPECIAL DE FAMILIA Y AMIGOS</p>
           </div>
           <button className="scroll-cue" onClick={() => goTo('historia')}>
-            DESCUBRE NUESTRA INVITACIÓN <span>↓</span>
+            DESCUBRE LA HISTORIA <span>↓</span>
           </button>
         </header>
         <section className="welcome section-pad" id="historia">
           <Reveal className="welcome-copy">
-            <p className="eyebrow">Con todo nuestro amor</p>
+            <p className="eyebrow">Capítulo I · Nuestra historia</p>
             <h2>
               Lo más bonito de la vida
               <br />
@@ -186,7 +189,7 @@ export const HomePage = (): JSX.Element => {
         </section>
         <section className="countdown-section section-pad">
           <Reveal>
-            <p className="eyebrow">Cada vez más cerca</p>
+            <p className="eyebrow">Cuenta regresiva para el estreno</p>
             <h2>
               Un día para recordar.
               <br />
@@ -197,7 +200,7 @@ export const HomePage = (): JSX.Element => {
         </section>
         <section className="events section-pad" id="evento">
           <Reveal>
-            <p className="eyebrow">La cita más especial</p>
+            <p className="eyebrow">Escena principal · La boda</p>
             <h2>
               Donde comienza
               <br />
@@ -244,7 +247,7 @@ export const HomePage = (): JSX.Element => {
           <Reveal>
             <div className="section-heading">
               <div>
-                <p className="eyebrow">Nuestra historia, en instantes</p>
+            <p className="eyebrow">Fotogramas de nuestra historia</p>
                 <h2>
                   Así se ve <em>el amor.</em>
                 </h2>
@@ -258,7 +261,7 @@ export const HomePage = (): JSX.Element => {
         </section>
         <section className="itinerary section-pad">
           <Reveal className="itinerary-intro">
-            <p className="eyebrow">El ritmo de nuestro día</p>
+            <p className="eyebrow">El guion de nuestro día</p>
             <h2>
               De un «sí, acepto»
               <br />
@@ -289,7 +292,7 @@ export const HomePage = (): JSX.Element => {
         </section>
         <section className="rsvp section-pad" id="confirmacion">
           <Reveal>
-            <p className="eyebrow">Nos falta lo más importante: tú</p>
+            <p className="eyebrow">Tu lugar en esta historia</p>
             <h2>CONFIRMAR ASISTENCIA</h2>
             <p>
               Nos encantará celebrar contigo.
@@ -486,7 +489,7 @@ export const HomePage = (): JSX.Element => {
           />
           <div className="closing-shade" />
           <Reveal>
-            <p className="eyebrow">Nuestro siguiente capítulo</p>
+            <p className="eyebrow">Continuará...</p>
             <h2>{data.fraseFinal}</h2>
             <p className="closing-names">
               {data.novia} <em>&</em> {data.novio}
