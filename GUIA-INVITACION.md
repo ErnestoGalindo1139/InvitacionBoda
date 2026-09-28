@@ -30,7 +30,7 @@ Todo está centralizado en `src/TiendaOnline/data/invitacion.ts`:
 - `dressCode`, `colores`: etiqueta y tonos orientativos.
 - `fotos`: rutas relativas a public y descripciones accesibles. Reemplaza las fotos de muestra por las de la pareja; son fotografías de stock de personas distintas.
 - `regalos.mostrar`: `false` para ocultar toda la sección.
-- `musica.src`: ruta del audio en `public/audio/`. La cancion incluida empieza al abrir el sobre, a 25% de volumen, y puede pausarse o reanudarse con el boton flotante.
+- `musica.src`: ruta del audio en `public/audio/`. La cancion incluida empieza al activar la claqueta, a 25% de volumen, y puede pausarse o reanudarse con el boton flotante.
 - `fraseFinal`: texto de cierre.
 
 Actualiza también el título y la descripción de `index.html` antes de compartir. No se configuraron fechas, contactos ni ubicaciones ficticias como si fueran reales.
@@ -71,17 +71,11 @@ Compilación `yarn build` correcta (TypeScript + Vite), lint de los ocho archivo
 
 La portada ahora vive en `src/TiendaOnline/components/InvitationIntro/` y envuelve la página existente. Conserva los datos, fotografías y rutas. No incorpora dependencias.
 
-El sobre tiene cuerpo, tarjeta, bolsillo, solapa y sello independientes. Una secuencia CSS de 2200 ms contrae ligeramente el sobre, gira la solapa con `rotateX`, eleva la tarjeta y amplía su fotografía mientras revela el Hero real. El evento `animationend` de la capa principal completa el estado `closed → opening → opened`; no hay cadenas de temporizadores. Los textos del Hero aparecen durante la misma secuencia.
+La entrada utiliza una claqueta con barra articulada, bisagra metálica, tablero y campos de producción. Al pulsarla, la barra cierra y rebota ligeramente; aparece la señal REC, se muestra «¡Acción!» y la claqueta se retira mientras aparece la portada. La secuencia dura 2200 ms y se sincroniza con las animaciones existentes del Hero.
 
-El sobre aparece cerrado cada vez que se entra o se recarga la página. También se restablece al volver desde la caché de navegación del navegador. La apertura no utiliza `sessionStorage`; cualquier clave antigua `weddingInvitationOpened` se ignora.
+Cada entrada o recarga comienza con la claqueta lista. También se restablece al volver desde la caché de navegación. No utiliza almacenamiento de sesión. Para repetir la apertura, basta con recargar la página.
 
-Para repetirla, basta con recargar la página, o ejecutar en la consola:
-
-```js
-location.reload();
-```
-
-No hay controles de reinicio en producción. Con movimiento reducido, el sobre abre inmediatamente y la página no ejecuta animaciones. Si la preferencia cambia durante la apertura, también se completa de inmediato. El botón admite Enter y Espacio; el contenido permanece `inert` y el scroll bloqueado hasta terminar. Después, el foco pasa al título del Hero.
+El botón admite toque, Enter y Espacio. El contenido permanece oculto a tecnologías de asistencia, inerte y con el desplazamiento bloqueado durante la entrada. Al terminar, se libera la página y el foco pasa al título. La preferencia de movimiento reducido abre inmediatamente; un temporizador de respaldo evita bloquear la página si el navegador interrumpe la animación.
 
 ## Comandos
 
@@ -92,13 +86,13 @@ npm run build
 node --test scripts/check-invitation.mjs
 ```
 
-Las pruebas automatizadas comprueban que cada montaje comienza con el sobre cerrado, incluso con una sesión anteriormente abierta o almacenamiento bloqueado, además del botón semántico y la ocultación accesible del contenido. No sustituyen las pruebas de interacción en un navegador.
+Las pruebas automatizadas comprueban que cada montaje comienza con la claqueta lista, incluso con una sesión anteriormente abierta o almacenamiento bloqueado, además del botón semántico y la ocultación accesible del contenido. No sustituyen las pruebas de interacción en un navegador.
 
 ## Prueba manual en navegador
 
-1. Revisar a 360, 375, 390, 430, 768, 1024 y 1440 px, además de móvil horizontal. Comprobar que no haya desbordamiento horizontal y que sobre, sello, textos y controles sean legibles.
-2. Abrir con toque, Enter y Espacio en pruebas separadas. Comprobar la continuidad tarjeta–Hero, los clics repetidos, el bloqueo de scroll durante la apertura y su liberación al finalizar.
-3. Recargar tras abrir: debe reaparecer el sobre cerrado. Repetir al entrar nuevamente y al regresar con Atrás desde otra página, incluida la restauración desde la caché de navegación.
+1. Revisar a 360, 375, 390, 430, 768, 1024 y 1440 px, además de móvil horizontal. Comprobar que no haya desbordamiento horizontal y que claqueta, barra levantada, textos y controles sean legibles.
+2. Abrir con toque, Enter y Espacio en pruebas separadas. Comprobar la continuidad claqueta–Hero, los clics repetidos, el bloqueo de scroll durante la apertura y su liberación al finalizar.
+3. Recargar tras abrir: debe reaparecer la claqueta lista. Repetir al entrar nuevamente y al regresar con Atrás desde otra página, incluida la restauración desde la caché de navegación.
 4. Activar `prefers-reduced-motion: reduce`, repetir la apertura y comprobar que no haya transiciones. Cambiar la preferencia mientras se abre también debe liberar la página.
 5. Recorrer todas las secciones, deslizar la galería y usar ambas flechas, comprobar el contador y los dos enlaces de ubicación. El RSVP flotante aparece al dejar atrás el Hero.
 

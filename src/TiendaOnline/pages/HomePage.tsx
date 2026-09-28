@@ -108,12 +108,21 @@ export const HomePage = (): JSX.Element => {
               <span>{data.novio}</span>
             </h1>
             <div className="hero-rule" />
-            <p className="hero-caption">La historia de un amor que comenzó con un “sí”...</p>
+            <p className="hero-caption">
+              La historia de un amor que comenzó con un “sí”...
+            </p>
           </div>
           <div className="hero-film-footer">
             <p className="hero-film-presents">UNA HISTORIA PARA RECORDAR</p>
-            <p className="hero-date"><span>✦ ESTRENO ✦</span>{data.fechaTexto}<span>✦ ESTRENO ✦</span></p>
-            <p className="hero-film-credits">PROTAGONIZADA POR ALEJANDRA Y DIONISIO · CON LA PARTICIPACIÓN ESPECIAL DE FAMILIA Y AMIGOS</p>
+            <p className="hero-date">
+              <span>✦ ESTRENO ✦</span>
+              {data.fechaTexto}
+              <span>✦ ESTRENO ✦</span>
+            </p>
+            <p className="hero-film-credits">
+              PROTAGONIZADA POR ALEJANDRA Y DIONISIO · CON LA PARTICIPACIÓN
+              ESPECIAL DE FAMILIA Y AMIGOS
+            </p>
           </div>
           <button className="scroll-cue" onClick={() => goTo('historia')}>
             DESCUBRE LA HISTORIA <span>↓</span>
@@ -121,7 +130,9 @@ export const HomePage = (): JSX.Element => {
         </header>
         <section className="welcome section-pad" id="historia">
           <Reveal className="welcome-copy">
-            <p className="eyebrow">Capítulo I · Nuestra historia</p>
+            <p className="eyebrow welcome-scene">
+              Escena 01 ✦ El inicio de nuestro siempre
+            </p>
             <h2>
               Lo más bonito de la vida
               <br />
@@ -153,10 +164,7 @@ export const HomePage = (): JSX.Element => {
             </div>
             <div className="blessing-card">
               <div className="blessing-copy">
-                <p className="blessing-kicker">
-                  Con la bendición de Dios
-                  <span>y en compañía de</span>
-                </p>
+                <p className="blessing-kicker">Reparto</p>
                 <h2>Nuestros Padres:</h2>
                 <div className="blessing-parents">
                   {data.bendicion.padres.map((grupo) => (
@@ -175,6 +183,12 @@ export const HomePage = (): JSX.Element => {
                       <path d="m80 11 5 5-5 5-5-5z" />
                     </svg>
                   </div>
+                  <p
+                    className="blessing-group pb-[1rem]"
+                    style={{ color: '#85704E' }}
+                  >
+                    Con participación de:
+                  </p>
                   <h2>Nuestros Padrinos:</h2>
                   {data.bendicion.padrinos.nombres.map((nombre) => (
                     <p key={nombre}>{nombre}</p>
@@ -193,7 +207,7 @@ export const HomePage = (): JSX.Element => {
             <h2>
               Un día para recordar.
               <br />
-              <em>Una vida para compartir.</em>
+              <em>Una historia para compartir.</em>
             </h2>
             <CuentaRegresiva fecha={data.fechaISO} />
           </Reveal>
@@ -247,7 +261,7 @@ export const HomePage = (): JSX.Element => {
           <Reveal>
             <div className="section-heading">
               <div>
-            <p className="eyebrow">Fotogramas de nuestra historia</p>
+                <p className="eyebrow">Fotogramas de nuestra historia</p>
                 <h2>
                   Así se ve <em>el amor.</em>
                 </h2>
@@ -273,33 +287,26 @@ export const HomePage = (): JSX.Element => {
         </section>
         <section className="dress section-pad">
           <Reveal>
-            <p className="eyebrow">Un toque de elegancia</p>
+            <p className="eyebrow">Código de vestimenta</p>
             <h2>{data.dressCode}</h2>
             <p>
               Elige ese look con el que te sientas increíble.
               <br />
-              Estos tonos pueden inspirarte.
+              Inspirate en el cine, viste con libertad y siéntete de película.
             </p>
-            <div className="swatches">
-              {data.colores.map((color) => (
-                <div key={color.nombre}>
-                  <span style={{ backgroundColor: color.valor }} />
-                  <small>{color.nombre}</small>
-                </div>
-              ))}
-            </div>
           </Reveal>
         </section>
         <section className="rsvp section-pad" id="confirmacion">
           <Reveal>
-            <p className="eyebrow">Tu lugar en esta historia</p>
+            <p className="eyebrow">Con la participación especial de:</p>
             <h2>CONFIRMAR ASISTENCIA</h2>
             <p>
-              Nos encantará celebrar contigo.
+              ¡El reparto no está completo sin ti!
               <br />
-              Tu asistencia es importante para nosotros, ya que compartir este
-              dia contigo lo hace aun mas especial. Por favor, confirma tu a
-              asistencia en el formulario de abajo.
+              <br />
+              Queremos que seas parte del elenco principal en este día tan
+              especial. Por favor, confirma tu asistencia antes de la fecha
+              límite 20 de octubre para asegurar tu pase VIP.
             </p>
             {rsvp ? (
               <a
@@ -312,19 +319,16 @@ export const HomePage = (): JSX.Element => {
               </a>
             ) : (
               <>
-                <button className="button-primary" disabled>
-                  Confirmar por WhatsApp ↗
-                </button>
                 <div className="adult-only-note" role="note">
                   <div>
                     <h3>
-                      <strong>SIN NIÑOS</strong>
+                      <strong>Clasificación C</strong>
                     </h3>
                     <p>
-                      Aunque amamos a los niños, nuestra celebración está
-                      pensada como una velada solo para adultos. Agradecemos su
-                      comprensión y esperamos compartir con ustedes una noche
-                      inolvidable.
+                      Aunque amamos los niños, nuestra noche de estreno ha sido
+                      concebida como una velada exclusiva para adultos.
+                      Agradecemos enormemente su comprensión y no podemos
+                      esperar para compartir con ustedes una noche de película.
                     </p>
                   </div>
                 </div>
@@ -339,20 +343,6 @@ export const HomePage = (): JSX.Element => {
                         type="text"
                         placeholder="Tu nombre"
                         autoComplete="name"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="rsvp-field">
-                    <label htmlFor="rsvp-celular">Celular</label>
-                    <div className="rsvp-input-wrap">
-                      <Phone size={18} aria-hidden="true" />
-                      <input
-                        id="rsvp-celular"
-                        name="celular"
-                        type="tel"
-                        placeholder="Tu celular"
-                        autoComplete="tel"
                         required
                       />
                     </div>
@@ -386,23 +376,6 @@ export const HomePage = (): JSX.Element => {
                       </label>
                     </div>
                   </fieldset>
-                  <div className="rsvp-field mt-[1rem]">
-                    <label htmlFor="rsvp-mensaje">
-                      Confirma el numero de personas que asistiran.
-                      <span className="rsvp-label-highlight">
-                        (No exceder el numero asignado en tu pase)
-                      </span>
-                    </label>
-                    <div className="rsvp-textarea-wrap">
-                      <MessageSquareText size={18} aria-hidden="true" />
-                      <textarea
-                        id="rsvp-mensaje"
-                        name="mensaje"
-                        placeholder="Escribe algún detalle o comentario"
-                        rows={4}
-                      />
-                    </div>
-                  </div>
                   <button className="rsvp-submit" type="submit">
                     <Send size={18} aria-hidden="true" />
                     Confirmar asistencia
@@ -420,7 +393,6 @@ export const HomePage = (): JSX.Element => {
         {data.regalos.mostrar && (
           <section className="gifts section-pad">
             <Reveal>
-              <span className="eyebrow">Un detalle con cariño</span>
               <h2>{data.regalos.titulo}</h2>
               <p>{data.regalos.texto}</p>
               <div className="gift-options">
@@ -491,6 +463,8 @@ export const HomePage = (): JSX.Element => {
           <Reveal>
             <p className="eyebrow">Continuará...</p>
             <h2>{data.fraseFinal}</h2>
+            <span className="closing-divider" aria-hidden="true" />
+            <p className="closing-thanks">{data.agradecimientoFinal}</p>
             <p className="closing-names">
               {data.novia} <em>&</em> {data.novio}
             </p>

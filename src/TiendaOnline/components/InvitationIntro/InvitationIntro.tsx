@@ -10,18 +10,6 @@ import './InvitationIntro.css';
 
 type InvitationState = 'closed' | 'opening' | 'opened';
 
-const LetterFlourish = ({ className }: { className: string }): JSX.Element => (
-  <svg
-    className={className}
-    viewBox="0 0 160 40"
-    fill="none"
-    aria-hidden="true"
-  >
-    <path d="M12 27c22 4 41 0 57-14m-42 15c-7-3-10-8-9-13 7 2 10 7 9 13Zm14-2c-6-5-7-11-5-15 6 4 8 9 5 15Zm13-5c-3-6-2-12 2-15 4 6 3 11-2 15Zm94 7c-22 4-41 0-57-14m42 15c7-3 10-8 9-13-7 2-10 7-9 13Zm-14-2c6-5 7-11 5-15-6 4-8 9-5 15Zm-13-5c3-6 2-12-2-15-4 6-3 11 2 15Z" />
-    <path d="m80 12 4 8-4 8-4-8zM80 4v3m0 26v3" />
-  </svg>
-);
-
 export const InvitationIntro = ({
   novia,
   novio,
@@ -41,10 +29,7 @@ export const InvitationIntro = ({
   const content = useRef<HTMLDivElement>(null);
   const shouldFocus = useRef(false);
   const locked = state !== 'opened';
-
-  const finish = useCallback((): void => {
-    setState('opened');
-  }, []);
+  const finish = useCallback((): void => setState('opened'), []);
 
   useEffect(() => {
     const onPageShow = (event: PageTransitionEvent): void => {
@@ -58,23 +43,22 @@ export const InvitationIntro = ({
 
   useEffect(() => {
     if (!locked) return;
-    const contentElement = content.current;
+    const element = content.current;
     const previousOverflow = document.body.style.overflow;
     const previousRootOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
-    contentElement?.setAttribute('inert', '');
+    element?.setAttribute('inert', '');
     return (): void => {
       document.body.style.overflow = previousOverflow;
       document.documentElement.style.overflow = previousRootOverflow;
-      contentElement?.removeAttribute('inert');
+      element?.removeAttribute('inert');
     };
   }, [locked]);
 
   useEffect(() => {
     if (state === 'opened' && shouldFocus.current) {
-      const title = content.current?.querySelector('h1');
-      title?.focus({ preventScroll: true });
+      content.current?.querySelector('h1')?.focus({ preventScroll: true });
     }
     if (state !== 'opening') return;
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -83,13 +67,18 @@ export const InvitationIntro = ({
     };
     motion.addEventListener('change', onMotionChange);
     onMotionChange();
-    return (): void => motion.removeEventListener('change', onMotionChange);
+    // Release the page even if the browser interrupts the animation.
+    const fallback = window.setTimeout(finish, 2600);
+    return (): void => {
+      motion.removeEventListener('change', onMotionChange);
+      window.clearTimeout(fallback);
+    };
   }, [state, finish]);
 
   const open = (): void => {
     if (state !== 'closed') return;
-    onOpen();
     shouldFocus.current = true;
+    onOpen();
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
     else setState('opening');
@@ -115,63 +104,105 @@ export const InvitationIntro = ({
               finish();
           }}
         >
-          <div className="invitation-intro-backdrop" />
-          <div className="invitation-intro-heading">
-            <p className="eyebrow">Una historia de amor</p>
-            <p className="invitation-intro-names">
-              {novia} <em>&</em> {novio}
-            </p>
-            <LetterFlourish className="invitation-heading-flourish" />
-            <span className="invitation-intro-date">{fecha}</span>
+          <div
+            className="cinema-backdrop"
+            style={{ backgroundImage: 'url("' + photo + '")' }}
+            aria-hidden="true"
+          />
+          <div className="cinema-viewfinder" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
           </div>
-          <button
-            type="button"
-            className="invitation-envelope-button"
-            aria-label={`Abrir la invitación de ${novia} y ${novio}`}
-            aria-disabled={state === 'opening'}
-            onClick={open}
-          >
-            <span className="invitation-envelope" aria-hidden="true">
-              <span className="envelope-underlay" />
-              <span className="envelope-back" />
-              <span className="envelope-card">
-                <span className="envelope-card-copy">
-                  <span className="eyebrow">Nos casamos</span>
-                  <span className="envelope-card-names">
-                    {novia}
-                    <em>&</em>
-                    {novio}
+          <div className="cinema-topline" aria-hidden="true">
+            <span>
+              {novia[0]} &amp; {novio[0]} <i>FILMS</i>
+            </span>
+            <span className="cinema-rec">
+              <b /> {state === 'opening' ? 'REC' : 'STANDBY'}
+            </span>
+          </div>
+          <div className="cinema-stage">
+            <div className="cinema-heading">
+              <p className="eyebrow">UNA PELÍCULA DE AMOR</p>
+              <h2>
+                Estamos a punto
+                <br />
+                de decir <em>«acción».</em>
+              </h2>
+            </div>
+            <button
+              type="button"
+              className="clapper-button"
+              aria-label={'Iniciar la película de ' + novia + ' y ' + novio}
+              aria-disabled={state === 'opening'}
+              onClick={open}
+            >
+              <span className="clapper" aria-hidden="true">
+                <span className="clapper-arm" />
+                <span className="clapper-fixed-bar" />
+                <span className="clapper-hinge">
+                  <i />
+                  <i />
+                </span>
+                <span className="clapper-board">
+                  <span className="slate-production">
+                    <small>PRODUCCIÓN</small>
+                    <span>Una vida contigo</span>
+                    <b>01</b>
                   </span>
-                  <LetterFlourish className="envelope-card-rule" />
-                  <span className="envelope-card-date">{fecha}</span>
+                  <span className="slate-names">
+                    <small>PROTAGONISTAS</small>
+                    <span>
+                      {novia}
+                      <em>&amp;</em>
+                      {novio}
+                    </span>
+                  </span>
+                  <span className="slate-grid">
+                    <span>
+                      <small>ESCENA</small>
+                      <strong>La boda</strong>
+                    </span>
+                    <span>
+                      <small>TOMA</small>
+                      <strong>Única</strong>
+                    </span>
+                    <span>
+                      <small>DURACIÓN</small>
+                      <strong>Siempre</strong>
+                    </span>
+                  </span>
+                  <span className="slate-date">
+                    <small>ESTRENO</small>
+                    <span>{fecha}</span>
+                  </span>
+                  <span className="slate-bottom">
+                    <span>
+                      SONIDO <b>♥</b> ESTÉREO
+                    </span>
+                    <span>HECHA CON AMOR</span>
+                  </span>
                 </span>
-                <span
-                  className="envelope-card-photo"
-                  style={{ backgroundImage: `url("${photo}")` }}
-                />
               </span>
-              <span className="envelope-pocket" />
-              <span className="envelope-address">
-                <span>Una carta para ti</span>
+              <span className="clapper-cue">
+                <span className="clapper-play" aria-hidden="true">
+                  ▶
+                </span>
                 <span>
-                  {novia} <i>&</i> {novio}
+                  Toca la claqueta<span>Y QUE COMIENCE NUESTRA HISTORIA</span>
                 </span>
               </span>
-              <span className="envelope-flap" />
-              <span className="envelope-ribbon" />
-              <span className="envelope-seal">
-                <span>
-                  {novia[0]}
-                  <i>&</i>
-                  {novio[0]}
-                </span>
-              </span>
-            </span>
-            <span className="invitation-open-cue">
-              Toca para abrir <span aria-hidden="true">↓</span>
-            </span>
-          </button>
-          <p className="invitation-intro-footer">Con todo nuestro amor</p>
+            </button>
+            <p className="cinema-action" role="status">
+              {state === 'opening' ? 'Silencio en el set… ¡Acción!' : ''}
+            </p>
+          </div>
+          <div className="cinema-bottomline">
+            <span>UNA HISTORIA REAL. UN AMOR DE PELÍCULA.</span>
+            <span>{fecha}</span>
+          </div>
         </div>
       )}
     </div>

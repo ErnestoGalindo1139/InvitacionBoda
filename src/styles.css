@@ -192,6 +192,12 @@
   max-width: 440px;
   color: var(--muted);
 }
+.wedding .welcome-scene {
+  margin-bottom: 28px;
+}
+.wedding .welcome-starring {
+  margin-bottom: 0;
+}
 .wedding .signature {
   font-style: italic;
   font-size: 1.7rem;
@@ -402,7 +408,7 @@
   margin: 0 auto 32px;
   color: #746b5c;
   font-family: var(--font-display);
-  font-size: clamp(0.62rem, 2.2vw, 0.75rem);
+  font-size: clamp(1rem, 2.2vw, 0.75rem);
   font-weight: 400;
   letter-spacing: 0.17em;
   line-height: 2.2;
@@ -1347,11 +1353,40 @@
 }
 .wedding .closing > .reveal {
   position: relative;
-  max-width: 780px;
+  max-width: 860px;
+  margin-inline: auto;
+}
+.wedding .closing .eyebrow {
+  color: #e4d0b0;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4.4vw, 3.6rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+.wedding .closing h2 {
+  font-size: clamp(1.2rem, 2.7vw, 1.7rem);
+  line-height: 1.4;
+  letter-spacing: normal;
+  margin: 24px auto;
+}
+.wedding .closing-divider {
+  display: block;
+  width: 70px;
+  height: 1px;
+  margin: 30px auto;
+  background: #e4d0b0;
+}
+.wedding .closing .closing-thanks {
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.7vw, 1.7rem);
+  line-height: 1.4;
 }
 .wedding .closing-names {
   font-size: 1.7rem;
-  margin-top: 40px;
+  margin-top: 44px;
 }
 .wedding .closing-names em {
   color: #e4d0b0;

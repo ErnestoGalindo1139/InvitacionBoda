@@ -43,13 +43,13 @@ test('a new session presents a semantic opening control and hides the page from 
   assert.match(html, /data-invitation="closed"/);
   assert.match(
     html,
-    /<button[^>]*type="button"[^>]*aria-label="Abrir la invitación de Alejandra y Dionisio"/
+    /<button[^>]*type="button"[^>]*aria-label="Iniciar la película de Alejandra y Dionisio"/
   );
   assert.match(html, /class="invitation-content" aria-hidden="true"/);
   assert.match(html, /Contenido de la invitación/);
 });
 
-test('a previously opened session still presents the closed envelope without reading storage', () => {
+test('a previously opened session still presents the ready clapperboard without reading storage', () => {
   let reads = 0;
   const html = render({
     getItem: () => {
@@ -60,7 +60,7 @@ test('a previously opened session still presents the closed envelope without rea
   assert.equal(reads, 0);
   assert.match(html, /data-invitation="closed"/);
   assert.match(html, /class="invitation-intro"/);
-  assert.match(html, /Toca para abrir/);
+  assert.match(html, /Toca la claqueta/);
 });
 
 test('unavailable storage does not prevent the invitation from rendering', () => {
@@ -70,7 +70,7 @@ test('unavailable storage does not prevent the invitation from rendering', () =>
     },
   });
   assert.match(html, /data-invitation="closed"/);
-  assert.match(html, /Toca para abrir/);
+  assert.match(html, /Toca la claqueta/);
 });
 
 test('every fresh mount starts closed regardless of previous storage values', () => {

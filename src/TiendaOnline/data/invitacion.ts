@@ -25,7 +25,7 @@ export const invitacion = {
     },
   },
   bienvenida:
-    'Hay momentos que cambian nuestra vida para siempre. El nuestro será aún más especial si lo compartimos contigo.',
+    'Hay historias que cambian nuestra vida para siempre. Nuestra historia será aún más especial si la compartimos contigo.',
   ceremonia: {
     nombre: 'Templo San Judas Tadeo',
     foto: {
@@ -117,9 +117,9 @@ export const invitacion = {
   ],
   regalos: {
     mostrar: true,
-    titulo: 'Tu presencia es nuestro mejor regalo',
+    titulo: 'Tu compañía ilumina nuestro gran estreno.',
     texto:
-      'Si deseas tener un detalle con nosotros, puedes elegir la opción que prefieras. Lo recibiremos con mucho cariño.',
+      'No hay mejor regalo que celebrar a tu lado. Si deseas sumarte como parte de la producción de nuestros sueños futuros con un detalle, puedes seleccionar la opción que prefieras; lo valoraremos infinitamente.',
     mesas: [
       {
         nombre: 'Liverpool',
@@ -137,5 +137,8 @@ export const invitacion = {
     src: 'audio/my-heart-will-go-on.mp3',
     titulo: 'My Heart Will Go On',
   },
-  fraseFinal: 'Gracias por ser parte de nuestra historia.',
+  fraseFinal:
+    'Porque las mejores historias de amor no terminan en la pantalla: se viven, se celebran y se comparten con las personas que amamos.',
+  agradecimientoFinal:
+    'Gracias por acompañarnos a escribir este nuevo capítulo.',
 };
