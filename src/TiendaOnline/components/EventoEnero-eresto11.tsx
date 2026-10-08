@@ -148,11 +148,11 @@ export const EventoEnero: React.FC = () => {
 
       {/* MODAL */}
       {modalOpen && (
-        <div className="fixed inset-0 z-[999] bg-black/60 flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-[999] bg-black/60 flex items-center justify-center p-6 overflow-y-auto">
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl"
+            className="bg-white rounded-2xl p-6 sm:p-8 max-w-sm max-h-full overflow-y-auto w-full text-center shadow-2xl"
           >
             <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
 
@@ -199,13 +199,13 @@ export const EventoEnero: React.FC = () => {
       )}
 
       {/* CONTENIDO */}
-      <div className="max-w-[82%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[5rem] items-center">
+      <div className="w-full lg:max-w-[82%] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-[5rem] items-center">
         {/* COLUMNA IZQUIERDA */}
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
-          className="text-white"
+          className="min-w-0 text-white"
         >
           {/* ⭐ LOGO CON FONDO CLARO ⭐ */}
           <motion.div
@@ -223,7 +223,7 @@ export const EventoEnero: React.FC = () => {
             <img
               src={LogoSimposio}
               alt="Logo Simposio PLD"
-              className="w-[280px] md:w-[360px]"
+              className="w-[280px] md:w-[360px] max-w-full"
               style={{
                 filter: 'brightness(1.1) contrast(1.1)',
               }}
@@ -269,13 +269,13 @@ export const EventoEnero: React.FC = () => {
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65 }}
-          className="bg-white rounded-3xl p-8 shadow-xl border border-gray-200"
+          className="min-w-0 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-200"
         >
           <h3 className="text-xl md:text-2xl font-bold text-[#04163B] text-center mb-6">
             Registro al Simposio
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
             <input
               name="nombre"
               placeholder="Nombre"

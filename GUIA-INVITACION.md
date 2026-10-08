@@ -1,8 +1,10 @@
 # Invitación digital de boda
 
+> La instalación y los flujos actuales están en la [guía del sistema](../README.md). Las notas siguientes describen la portada original. Ahora hay backend SQL Server, administración y confirmación por cantidad de pases; se usa BrowserRouter y Yarn 1.22.22 con `yarn.lock`. El número de WhatsApp ya está configurado y el formulario de contacto siempre se muestra.
+
 ## Ejecutar
 
-Con Node.js 20 o posterior y Yarn 1.22.22:
+Con Node.js 22.12 o posterior y Yarn 1.22.22:
 
 ```bash
 yarn install --frozen-lockfile
@@ -15,7 +17,7 @@ Para publicar en tu hosting:
 yarn build
 ```
 
-Sube el contenido de `dist/` al directorio público del dominio. No abras `index.html` directamente con file://. El proyecto conserva HashRouter y la ruta principal `/#/`. Si publicas dentro de una subcarpeta, configura `base` en `vite.config.ts` antes de compilar; los assets de la invitación usan BASE_URL.
+Sube el contenido de `dist/` al directorio público del dominio. No abras `index.html` directamente con file://. El proyecto usa BrowserRouter y la ruta principal `/`; configura el hosting para devolver `index.html` en `/admin` y `/invitacion/*`. Si publicas dentro de una subcarpeta, configura `base` en `vite.config.ts` antes de compilar; los assets de la invitación usan BASE_URL.
 
 ## Personalización
 

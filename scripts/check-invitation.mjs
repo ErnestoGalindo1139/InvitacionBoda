@@ -31,7 +31,7 @@ const render = (storage) => {
         novia: 'Alejandra',
         novio: 'Dionisio',
         fecha: '12 de Diciembre de 2026',
-        photo: '/img/boda/alejandra&dionicio-38.png',
+        photo: '/img/boda/carrusel4.png',
       },
       React.createElement('h1', null, 'Contenido de la invitación')
     )

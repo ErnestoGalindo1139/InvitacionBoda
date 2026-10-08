@@ -73,7 +73,7 @@ export const VerArchivo: React.FC<VerArchivoProps> = ({
       <img
         src={url}
         alt={nombre || 'Archivo'}
-        className="max-h-[70vh] rounded-lg shadow-md mx-auto"
+        className="max-w-full h-auto object-contain max-h-[70vh] rounded-lg shadow-md mx-auto"
       />
     );
   } else if (isPDF) {

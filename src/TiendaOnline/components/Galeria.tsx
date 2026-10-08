@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import { useRef } from 'react';
-import { assetUrl } from '../helpers/invitacion';
+import { galleryImageSizes, imageProps } from '../helpers/images';
 export const Galeria = ({
   fotos,
 }: {
@@ -32,7 +32,8 @@ export const Galeria = ({
         {fotos.map((foto, i) => (
           <figure key={foto.src}>
             <img
-              src={assetUrl(foto.src)}
+              {...imageProps(foto.src)}
+              sizes={galleryImageSizes(foto.src)}
               alt={foto.alt}
               loading="lazy"
               decoding="async"

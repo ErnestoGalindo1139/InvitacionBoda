@@ -34,6 +34,9 @@ export const Musica = ({
         src={assetUrl(src)}
         loop
         preload="metadata"
+        onLoadedMetadata={(event) => {
+          event.currentTarget.currentTime = 5;
+        }}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onError={() => {

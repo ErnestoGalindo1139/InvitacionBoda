@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { assetUrl } from '../helpers/invitacion';
+import { imageProps } from '../helpers/images';
 
 export const FotoLugar = ({
   src,
@@ -14,7 +14,8 @@ export const FotoLugar = ({
     <span className="venue-photo-tape" aria-hidden="true" />
     <div className="venue-photo-image">
       <img
-        src={assetUrl(src)}
+        {...imageProps(src)}
+        sizes="(min-width: 768px) 420px, 100vw"
         alt={alt}
         loading="lazy"
         decoding="async"

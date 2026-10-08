@@ -156,7 +156,7 @@ export const SimposioPage = (): React.JSX.Element => {
           <img
             src={isMobile ? brochure.preview.mobile : brochure.preview.desktop}
             alt="Preview Brochure"
-            className="w-full h-[full] md:h-[550px] object-center"
+            className="w-full h-auto md:h-[550px] object-center"
           />
 
           <div className="px-7 py-6">
@@ -190,7 +190,7 @@ export const SimposioPage = (): React.JSX.Element => {
       </div>
 
       {/* GRID — OTRAS 2 CARDS */}
-      <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 md:grid-cols-3 gap-10 items-stretch">
+      <div className="max-w-7xl mx-auto px-6 pb-24 grid grid-cols-1 lg:grid-cols-3 gap-10 items-stretch">
         {archivos.map((a, i) => {
           const abrirWhatsApp = () => {
             const mensaje = encodeURIComponent(
@@ -254,7 +254,7 @@ export const SimposioPage = (): React.JSX.Element => {
                 <img
                   src={isMobile ? a.preview.mobile : a.preview.desktop}
                   alt={a.nombre}
-                  className="w-full h-full md:h-[220px] object-center"
+                  className="w-full h-auto md:h-[220px] object-center"
                 />
               )}
 

@@ -46,9 +46,9 @@ export const invitacion = {
     direccion: '',
     maps: 'https://maps.app.goo.gl/9CHjHKnDdBabRH6H8',
   },
-  whatsapp: '[Número]', // Internacional, solo dígitos: 52 + 10 dígitos para México.
+  whatsapp: '526699296312', // Internacional, solo dígitos.
   mensajeConfirmacion:
-    '¡Hola! Me encantará acompañarlos en su boda. Mi nombre es: ',
+    'Gracias por invitarme a compartir este día tan especial.',
   dressCode: 'Formal elegante',
   colores: [
     { nombre: 'Vino', valor: '#682c3b' },
@@ -85,11 +85,11 @@ export const invitacion = {
   ],
   fotos: [
     {
-      src: 'img/boda/alejandra&dionicio-38.png',
+      src: 'img/boda/carrusel4.png',
       alt: 'Fotografía de inspiración: pareja de novios',
     },
     {
-      src: 'img/boda/fotoBoda.jpeg',
+      src: 'img/boda/fotoBoda.png',
       alt: 'Fotografía de inspiración: ramo de novia',
     },
     {
@@ -99,19 +99,27 @@ export const invitacion = {
   ],
   fotosCarrusel: [
     {
-      src: 'img/boda/alejandra&dionicio-59.png',
+      src: 'img/boda/carrusel1.jpeg',
       alt: 'Fotografía de inspiración: pareja de novios',
     },
     {
-      src: 'img/boda/alejandra&dionicio-08.png',
+      src: 'img/boda/carrusel2.jpeg',
       alt: 'Fotografía de inspiración: ramo de novia',
     },
     {
-      src: 'img/boda/alejandra&dionicio-33.png',
+      src: 'img/boda/carrusel3.png',
       alt: 'Fotografía de inspiración: un beso en el jardín',
     },
     {
-      src: 'img/boda/alejandra&dionicio-12.png',
+      src: 'img/boda/carrusel4.png',
+      alt: 'Fotografía de inspiración: un beso en el jardín',
+    },
+    {
+      src: 'img/boda/carrusel5.jpeg',
+      alt: 'Fotografía de inspiración: un beso en el jardín',
+    },
+    {
+      src: 'img/boda/carrusel6.jpeg',
       alt: 'Fotografía de inspiración: un beso en el jardín',
     },
   ],
@@ -134,8 +142,8 @@ export const invitacion = {
     ],
   },
   musica: {
-    src: 'audio/my-heart-will-go-on.mp3',
-    titulo: 'My Heart Will Go On',
+    src: 'audio/lo-arriesgo-todo.mp3',
+    titulo: 'Lo Arriesgo Todo',
   },
   fraseFinal:
     'Porque las mejores historias de amor no terminan en la pantalla: se viven, se celebran y se comparten con las personas que amamos.',

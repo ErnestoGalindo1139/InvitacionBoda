@@ -6,14 +6,13 @@ import {
   Gift,
   Heart,
   Mail,
-  MessageSquareText,
-  Phone,
   Send,
   UserRound,
   XCircle,
 } from 'lucide-react';
 import { invitacion as data } from '../data/invitacion';
-import { assetUrl, mapsUrl, whatsappUrl } from '../helpers/invitacion';
+import { mapsUrl, whatsappUrl } from '../helpers/invitacion';
+import { imageProps, imageUrl } from '../helpers/images';
 import { Reveal } from '../components/Reveal';
 import { CuentaRegresiva } from '../components/CuentaRegresiva';
 import { Galeria } from '../components/Galeria';
@@ -29,9 +28,8 @@ const goTo = (id: string): void =>
   });
 export const HomePage = (): JSX.Element => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const rsvp = whatsappUrl(data.whatsapp, data.mensajeConfirmacion);
   const [showFloatingRsvp, setShowFloatingRsvp] = useState(false);
-  const [confirmationSent, setConfirmationSent] = useState(false);
+  const [preparedUrl, setPreparedUrl] = useState('');
 
   useEffect(() => {
     const hero = document.querySelector('.wedding .hero');
@@ -51,26 +49,25 @@ export const HomePage = (): JSX.Element => {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const nombre = String(formData.get('nombre') ?? '').trim();
-    const celular = String(formData.get('celular') ?? '').trim();
+    if (!nombre) {
+      form.querySelector<HTMLInputElement>('[name="nombre"]')?.focus();
+      return;
+    }
     const asistencia = String(formData.get('asistencia') ?? '').trim();
-    const mensajeInvitado = String(formData.get('mensaje') ?? '').trim();
+    const respuesta =
+      asistencia === 'Sí asistiré'
+        ? '¡*Sí asistiré* a su boda! Me dará mucha alegría celebrar con ustedes.'
+        : '*No podré asistir* a su boda, pero les deseo un día lleno de amor y momentos inolvidables. ¡Les mando un abrazo!';
     const mensaje = [
-      data.mensajeConfirmacion,
-      `Nombre: ${nombre}`,
-      `Celular: ${celular}`,
-      `Respuesta: ${asistencia}`,
-      mensajeInvitado ? `Mensaje: ${mensajeInvitado}` : '',
-    ]
-      .filter(Boolean)
-      .join('\n');
+      `¡Hola, ${data.novia} y ${data.novio}! Soy *${nombre}*.`,
+      `${data.mensajeConfirmacion} ${respuesta}`,
+    ].join('\n\n');
     const confirmacion = whatsappUrl(data.whatsapp, mensaje);
 
     if (confirmacion) {
+      setPreparedUrl(confirmacion);
       window.open(confirmacion, '_blank', 'noopener,noreferrer');
     }
-
-    setConfirmationSent(true);
-    form.reset();
   };
 
   return (
@@ -78,7 +75,7 @@ export const HomePage = (): JSX.Element => {
       novia={data.novia}
       novio={data.novio}
       fecha={data.fechaTexto}
-      photo={assetUrl(data.fotos[0].src)}
+      photo={imageUrl(data.fotos[0].src)}
       onOpen={() => {
         if (!audioRef.current) return;
         audioRef.current.volume = 0.25;
@@ -91,11 +88,13 @@ export const HomePage = (): JSX.Element => {
         <header className="hero">
           <img
             className="hero-photo"
-            src={assetUrl(data.fotos[0].src)}
+            {...imageProps(data.fotos[0].src)}
+            sizes="(max-aspect-ratio: 2/3) 67vh, 100vw"
+            decoding="async"
             alt={data.fotos[0].alt}
             width="1800"
             height="1200"
-            fetchPriority="high"
+            {...{ fetchpriority: 'high' }}
           />
           <div className="hero-shade" />
           <nav className="topbar" aria-label="Invitación">
@@ -143,7 +142,9 @@ export const HomePage = (): JSX.Element => {
           </Reveal>
           <Reveal className="welcome-photo">
             <img
-              src={assetUrl(data.fotos[1].src)}
+              {...imageProps(data.fotos[1].src)}
+              sizes="(min-width: 768px) 440px, 100vw"
+              decoding="async"
               alt={data.fotos[1].alt}
               loading="lazy"
               width="1400"
@@ -294,100 +295,105 @@ export const HomePage = (): JSX.Element => {
               <br />
               Inspirate en el cine, viste con libertad y siéntete de película.
             </p>
+            <p>
+              <strong>
+                Te pedimos amablemente evitar el color blanco y el traje verde,
+                para que los novios luzcan en su día.
+              </strong>
+            </p>
           </Reveal>
         </section>
         <section className="rsvp section-pad" id="confirmacion">
           <Reveal>
             <p className="eyebrow">Con la participación especial de:</p>
-            <h2>CONFIRMAR ASISTENCIA</h2>
+            <h2>QUEREMOS SABER DE TI</h2>
             <p>
               ¡El reparto no está completo sin ti!
               <br />
               <br />
               Queremos que seas parte del elenco principal en este día tan
-              especial. Por favor, confirma tu asistencia antes de la fecha
-              límite 20 de octubre para asegurar tu pase VIP.
+              especial. Escribe tu nombre e indica si deseas asistir.
+              Prepararemos un mensaje para el organizador; después recibirás tu
+              enlace personalizado para confirmar cuántos pases usarás.
             </p>
-            {rsvp ? (
-              <a
-                className="button-primary"
-                href={rsvp}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Confirmar por WhatsApp ↗
-              </a>
-            ) : (
-              <>
-                <div className="adult-only-note" role="note">
-                  <div>
-                    <h3>
-                      <strong>Clasificación C</strong>
-                    </h3>
-                    <p>
-                      Aunque amamos los niños, nuestra noche de estreno ha sido
-                      concebida como una velada exclusiva para adultos.
-                      Agradecemos enormemente su comprensión y no podemos
-                      esperar para compartir con ustedes una noche de película.
-                    </p>
+            <>
+              <div className="adult-only-note" role="note">
+                <div>
+                  <h3>
+                    <strong>Clasificación C</strong>
+                  </h3>
+                  <p>
+                    Aunque amamos los niños, nuestra noche de estreno ha sido
+                    concebida como una velada exclusiva para adultos.
+                    Agradecemos enormemente su comprensión y no podemos esperar
+                    para compartir con ustedes una noche de película.
+                  </p>
+                </div>
+              </div>
+              <form className="rsvp-form" onSubmit={handleRsvpSubmit}>
+                <div className="rsvp-field">
+                  <label htmlFor="rsvp-nombre">Nombre</label>
+                  <div className="rsvp-input-wrap">
+                    <UserRound size={18} aria-hidden="true" />
+                    <input
+                      id="rsvp-nombre"
+                      name="nombre"
+                      type="text"
+                      placeholder="Tu nombre"
+                      autoComplete="name"
+                      required
+                      maxLength={150}
+                    />
                   </div>
                 </div>
-                <form className="rsvp-form" onSubmit={handleRsvpSubmit}>
-                  <div className="rsvp-field">
-                    <label htmlFor="rsvp-nombre">Nombre</label>
-                    <div className="rsvp-input-wrap">
-                      <UserRound size={18} aria-hidden="true" />
+                <fieldset className="rsvp-field rsvp-radio-group">
+                  <legend>¿Nos acompañarás?</legend>
+                  <div className="rsvp-radio-options">
+                    <label className="rsvp-radio-option">
                       <input
-                        id="rsvp-nombre"
-                        name="nombre"
-                        type="text"
-                        placeholder="Tu nombre"
-                        autoComplete="name"
+                        type="radio"
+                        name="asistencia"
+                        value="Sí asistiré"
                         required
                       />
-                    </div>
+                      <span>
+                        <CheckCircle2 size={18} aria-hidden="true" />
+                        Sí asistiré
+                      </span>
+                    </label>
+                    <label className="rsvp-radio-option">
+                      <input
+                        type="radio"
+                        name="asistencia"
+                        value="No podré asistir"
+                        required
+                      />
+                      <span>
+                        <XCircle size={18} aria-hidden="true" />
+                        No podré asistir
+                      </span>
+                    </label>
                   </div>
-                  <fieldset className="rsvp-field rsvp-radio-group">
-                    <legend>¿Nos acompañarás?</legend>
-                    <div className="rsvp-radio-options">
-                      <label className="rsvp-radio-option">
-                        <input
-                          type="radio"
-                          name="asistencia"
-                          value="Sí asistiré"
-                          required
-                        />
-                        <span>
-                          <CheckCircle2 size={18} aria-hidden="true" />
-                          Sí asistiré
-                        </span>
-                      </label>
-                      <label className="rsvp-radio-option">
-                        <input
-                          type="radio"
-                          name="asistencia"
-                          value="No podré asistir"
-                          required
-                        />
-                        <span>
-                          <XCircle size={18} aria-hidden="true" />
-                          No podré asistir
-                        </span>
-                      </label>
-                    </div>
-                  </fieldset>
-                  <button className="rsvp-submit" type="submit">
-                    <Send size={18} aria-hidden="true" />
-                    Confirmar asistencia
-                  </button>
-                  {confirmationSent && (
-                    <p className="rsvp-form-status" role="status">
-                      Gracias, tu confirmación quedó preparada.
-                    </p>
-                  )}
-                </form>
-              </>
-            )}
+                </fieldset>
+                <button className="rsvp-submit" type="submit">
+                  <Send size={18} aria-hidden="true" />
+                  Preparar mensaje en WhatsApp
+                </button>
+                {preparedUrl && (
+                  <p className="rsvp-form-status" role="status">
+                    El mensaje está preparado. Envíalo desde WhatsApp; todavía
+                    no se ha registrado una confirmación ni reservado un pase.{' '}
+                    <a
+                      href={preparedUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Abrir WhatsApp
+                    </a>
+                  </p>
+                )}
+              </form>
+            </>
           </Reveal>
         </section>
         {data.regalos.mostrar && (
@@ -416,7 +422,8 @@ export const HomePage = (): JSX.Element => {
                     <div className="gift-option-art" aria-hidden="true">
                       {mesa.nombre === 'Liverpool' ? (
                         <img
-                          src={assetUrl(data.fotos[0].src)}
+                          {...imageProps(data.fotos[0].src)}
+                          sizes="96px"
                           alt=""
                           loading="lazy"
                         />
@@ -453,7 +460,9 @@ export const HomePage = (): JSX.Element => {
         )}
         <footer className="closing">
           <img
-            src={assetUrl(data.fotos[2].src)}
+            {...imageProps(data.fotos[2].src)}
+            sizes="(max-width: 1200px) 1200px, 100vw"
+            decoding="async"
             alt={data.fotos[2].alt}
             loading="lazy"
             width="1800"
@@ -474,6 +483,7 @@ export const HomePage = (): JSX.Element => {
         <Musica {...data.musica} audioRef={audioRef} />
         {showFloatingRsvp && (
           <button
+            type="button"
             className="floating-rsvp"
             onClick={() => goTo('confirmacion')}
           >

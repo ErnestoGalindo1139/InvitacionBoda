@@ -74,30 +74,30 @@ export const ModalBase: React.FC<ModalBaseProps> = ({
               border border-[#1e293b]
               text-[#f1f5f9]
               rounded-xl shadow-xl
-              w-full ${sizes[maxWidth]}
+              w-full min-w-0 max-h-full flex flex-col ${sizes[maxWidth]}
               ${variant === 'fullscreen' ? 'h-full' : ''}
               overflow-hidden
             `}
           >
             <div
-              className="flex items-center justify-between px-6 py-4 
+              className="flex shrink-0 items-center justify-between gap-4 px-6 py-4
                     border-b border-[#1e293b] 
                     bg-[#1e3a8a]"
             >
               {' '}
               {/* HEADER AZULito */}
-              <h2 className="text-lg font-semibold text-white">{title}</h2>
+              <h2 className="min-w-0 break-words text-lg font-semibold text-white">{title}</h2>
               <button
                 type="button"
                 onClick={onClose}
-                className="text-gray-200 hover:text-white transition-colors"
+                className="shrink-0 text-gray-200 hover:text-white transition-colors"
               >
                 <X size={20} />
               </button>
             </div>
 
             {/* CONTENIDO */}
-            <div className="p-6 overflow-y-auto max-h-[80vh]">{children}</div>
+            <div className="min-h-0 min-w-0 p-6 overflow-y-auto max-h-[80vh]">{children}</div>
           </motion.div>
         </motion.div>
       )}

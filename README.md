@@ -48,3 +48,19 @@ export default tseslint.config({
   },
 });
 ```
+# Sistema de invitación de boda
+
+Consulta la [guía de instalación y operación](../README.md) para configurar la API, SQL Server, administrador y dominios. Las rutas activas son `/`, `/admin` y `/invitacion/:token`; el hosting debe devolver `index.html` en las rutas del navegador.
+
+```powershell
+yarn install --frozen-lockfile
+yarn dev
+yarn build
+yarn test
+yarn test:e2e
+```
+
+Configura `VITE_API_URL` usando `.env.example`; no incluyas secretos en variables `VITE_`.
+
+
+El panel gestiona una persona y sus pases asignados; su enlace confirma cuántos usará. El QR muestra la cantidad confirmada. Para migrar la base y cargar la lista PDF, sigue la guía raíz.

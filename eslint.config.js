@@ -9,7 +9,7 @@ import prettier from 'eslint-plugin-prettier'; // Importar el plugin de Prettier
 
 export default [
   {
-    ignores: ['dist'],
+    ignores: ['dist', 'src/**/*-eresto11.tsx'],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -25,6 +25,7 @@ export default [
     },
     rules: {
       ...js.configs.recommended.rules,
+      'no-undef': 'off', // TypeScript valida también los tipos globales del DOM.
       ...tsPlugin.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       ...tanstackQuery.configs.recommended.rules,
