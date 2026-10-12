@@ -1272,6 +1272,25 @@
   height: 100%;
   object-fit: cover;
 }
+.wedding .gift-option-envelope .gift-option-art img {
+  object-position: 50% 18%;
+}
+.wedding .gift-option-art-liverpool img {
+  position: absolute;
+  width: 300%;
+  max-width: none;
+  height: auto;
+  left: -133%;
+  top: -15%;
+}
+.wedding .gift-option-art-cimaco img {
+  position: absolute;
+  width: 270%;
+  max-width: none;
+  height: auto;
+  left: -120%;
+  top: -80%;
+}
 .wedding .gift-art-heart {
   position: absolute;
   top: 34px;

@@ -3,9 +3,6 @@ import {
   CheckCircle2,
   CalendarDays,
   ExternalLink,
-  Gift,
-  Heart,
-  Mail,
   Send,
   UserRound,
   XCircle,
@@ -293,14 +290,29 @@ export const HomePage = (): JSX.Element => {
             <p>
               Elige ese look con el que te sientas increíble.
               <br />
-              Inspirate en el cine, viste con libertad y siéntete de película.
+              Inspírate en el tema del cine clásico, viste con libertad y siéntete
+              como en una película.
             </p>
             <p>
               <strong>
-                Te pedimos amablemente evitar el color blanco y el traje verde,
-                para que los novios luzcan en su día.
+                Te pedimos amablemente evitar el color azul, el color blanco
+                y el traje verde, para que los novios luzcan.
               </strong>
             </p>
+            <div className="swatches">
+              <div>
+                <span style={{ backgroundColor: '#87CEEB' }} aria-hidden="true" />
+                <small>Azul</small>
+              </div>
+              <div>
+                <span style={{ backgroundColor: '#FFFFFF' }} aria-hidden="true" />
+                <small>Blanco</small>
+              </div>
+              <div>
+                <span style={{ backgroundColor: '#355E3B' }} aria-hidden="true" />
+                <small>Verde</small>
+              </div>
+            </div>
           </Reveal>
         </section>
         <section className="rsvp section-pad" id="confirmacion">
@@ -405,11 +417,11 @@ export const HomePage = (): JSX.Element => {
                 <div className="gift-option gift-option-envelope">
                   <span className="gift-option-number">01</span>
                   <div className="gift-option-art" aria-hidden="true">
-                    <Mail size={42} strokeWidth={1.2} />
-                    <Heart
-                      className="gift-art-heart"
-                      size={15}
-                      fill="currentColor"
+                    <img
+                      {...imageProps(data.fotos[0].src)}
+                      sizes="96px"
+                      alt=""
+                      loading="lazy"
                     />
                   </div>
                   <h3>Sobre</h3>
@@ -419,17 +431,20 @@ export const HomePage = (): JSX.Element => {
                 {data.regalos.mesas.map((mesa, index) => (
                   <div className="gift-option" key={mesa.nombre}>
                     <span className="gift-option-number">0{index + 2}</span>
-                    <div className="gift-option-art" aria-hidden="true">
-                      {mesa.nombre === 'Liverpool' ? (
-                        <img
-                          {...imageProps(data.fotos[0].src)}
-                          sizes="96px"
-                          alt=""
-                          loading="lazy"
-                        />
-                      ) : (
-                        <Gift size={44} strokeWidth={1.2} />
-                      )}
+                    <div
+                      className={`gift-option-art gift-option-art-${mesa.nombre.toLowerCase()}`}
+                      aria-hidden="true"
+                    >
+                      <img
+                        {...imageProps(
+                          mesa.nombre === 'Liverpool'
+                            ? 'img/boda/alejandra&dionicio-32.png'
+                            : 'img/boda/carrusel3.png',
+                        )}
+                        sizes="384px"
+                        alt=""
+                        loading="lazy"
+                      />
                     </div>
                     <h3>{mesa.nombre}</h3>
                     <p className="gift-event-title">
